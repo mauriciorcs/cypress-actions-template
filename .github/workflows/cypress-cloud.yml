@@ -24,7 +24,6 @@ jobs:
           browser: electron
           record: true
           group: UI Electron
-          ci-build-id: ${{ github.run_id }}
           spec: ${{ github.event.inputs.spec }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -47,14 +46,13 @@ jobs:
           browser: chrome
           record: true
           group: UI Chrome
-          ci-build-id: ${{ github.run_id }}
           spec: ${{ github.event.inputs.spec }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   cypress-e2e-firefox:
-    needs: cypress-e2e-chrome
+    needs: cypress-e2e-electron
     runs-on: ubuntu-latest
     container: 
       image: cypress/browsers:node18.12.0-chrome103-ff107
@@ -70,7 +68,6 @@ jobs:
           browser: firefox
           record: true
           group: UI Firefox
-          ci-build-id: ${{ github.run_id }}
           spec: ${{ github.event.inputs.spec }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
